@@ -1,0 +1,22 @@
+{
+    "name": "edigomes/crawler-cnp",
+    "description": "API para comunicar com o CNP GS1",
+    "type": "library",
+    "require": {
+        "guzzlehttp/guzzle": "^6.3",
+        "fabpot/goutte": "^3.2@dev",
+        "tightenco/collect": "^5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "APICNP\\": "src"
+        }
+    },
+    "authors": [
+        {
+            "name": "edigomes",
+            "email": "edi.gomes00@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
