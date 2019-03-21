@@ -191,9 +191,7 @@ class CNP {
             return false !== stristr($item->brick, $keyword);
         });
         
-        
-        
-        return $results;
+        return $results->values();
         
     }
 
