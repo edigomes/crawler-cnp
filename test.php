@@ -8,7 +8,7 @@ use APICNP\CNP;
 
 $CNP = new CNP("08164550000158");
 //sleep(3);
-//$CNP->login("edi.gomes@aconos.com.br", "J5(mU:#}h:/*V5");
+
 //$CNP->getProducts();
 //$res = $CNP->getProductInfo("7908242600015");
 //
