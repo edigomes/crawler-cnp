@@ -6,9 +6,9 @@ require './vendor/autoload.php';
 // Namespace
 use APICNP\CNP;
 
-$CNP = new CNP("08164550000158");
+$CNP = new CNP("xxx");
 //sleep(3);
-
+//$CNP->login("xxxx", "xxxx");
 //$CNP->getProducts();
 //$res = $CNP->getProductInfo("7908242600015");
 //
