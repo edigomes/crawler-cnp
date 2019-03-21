@@ -13,7 +13,8 @@ $CNP = new CNP("08164550000158");
 //$res = $CNP->getProductInfo("7908242600015");
 //
 //$res = $CNP->getFromSegmentId("50000000");
-$res = $CNP->searchInSegment("mesa", "75000000");
+//$res = $CNP->searchInSegment("mesa", "75000000");
+$res = $CNP->getSegments();
 
 /*$res = $CNP->storeProduct([
     "indicadorgdsn" => 0,
