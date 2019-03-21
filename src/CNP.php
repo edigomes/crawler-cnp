@@ -175,7 +175,7 @@ class CNP {
     
     public function getFromSegmentId($segmentId) {
         
-        $classes = collect(json_decode(file_get_contents("classes.js"), true));
+        $classes = collect(json_decode(file_get_contents( dirname(__FILE__) . DIRECTORY_SEPARATOR . "data" . DIRECTORY_SEPARATOR . "classes.js") , true));
         
         return $classes->where("segmentId", $segmentId);
         
@@ -183,13 +183,15 @@ class CNP {
     
     public function searchInSegment($keyword, $segmentId) {
         
-        $classes = collect(json_decode(file_get_contents("classes.js")));
+        $classes = collect(json_decode(file_get_contents( dirname(__FILE__) . DIRECTORY_SEPARATOR . "data" . DIRECTORY_SEPARATOR . "classes.js") ));
         
         $results = collect($classes->where("segmentId", $segmentId))->filter(function ($item) use ($keyword) {
             // replace stristr with your choice of matching function
             //var_dump($item);exit;
             return false !== stristr($item->brick, $keyword);
         });
+        
+        
         
         return $results;
         
