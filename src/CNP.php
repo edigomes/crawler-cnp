@@ -90,7 +90,7 @@ class CNP {
         return $stdResponse;
         
     }
-
+    
     public function getProducts() {
 
         try {
@@ -121,6 +121,11 @@ class CNP {
             var_dump($ex->getMessage());
         }
 
+    }
+    
+    public function storeProductMock($data) {
+        $stdResponse = json_decode(file_get_contents( dirname(__FILE__) . DIRECTORY_SEPARATOR . "requests" . DIRECTORY_SEPARATOR . "cadastrar-produto-response.json"));
+        return $stdResponse;
     }
     
     public function storeProduct($data) {
