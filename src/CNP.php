@@ -16,6 +16,7 @@ use GuzzleHttp\Exception\RequestException;
  */
 class CNP {
 
+    private $cad;
     private $client;
     private $environment = 0;
     private $grant_type = 'password';
@@ -37,7 +38,7 @@ class CNP {
         'Connection'=>'keep-alive',
     ];
 
-    function __construct($cpfCnpj) {
+    function __construct($cpfCnpj, $cad) {
 
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -59,11 +60,16 @@ class CNP {
         ]);
         
         $this->cookieJar->save();
+        $this->cad = $cad;
         
     }
 
     public function login($username, $password) {
 
+        if ($this->verificaUsuarioLogado()) {
+            return true;
+        }
+        
         $response = $this->client->request('POST', '/handlers/requisicao.ashx/LoginBO/Logar', [
             RequestOptions::JSON => [
                 "where" => [
@@ -85,7 +91,8 @@ class CNP {
 
         $this->cookieJar->save();
 
-        //var_dump($_SESSION["cnp:{$this->cpfCnpj}"]);
+        // Carrega usuário no GS1
+        $this->buscarAssociadosUsuario(89896);
         
         return $stdResponse;
         
@@ -146,7 +153,9 @@ class CNP {
             return $stdResponse;
             
         } catch (RequestException $ex) {
-            var_dump($ex->getResponse()->getBody()->getContents());
+            $content = $ex->getResponse()->getBody()->getContents();
+            $stdResponse = json_decode($content);
+            return $stdResponse;
         }
         
     }
@@ -171,7 +180,32 @@ class CNP {
             return $stdResponse[0];
             
         } catch (RequestException $ex) {
-            var_dump($ex->getMessage());
+            $content = $ex->getResponse()->getBody()->getContents();
+            exit($content);
+            $stdResponse = json_decode($content);
+            return $stdResponse;
+        }
+        
+    }
+    
+    public function verificaUsuarioLogado() {
+
+        try {
+            
+            $response = $this->client->request('POST', '/handlers/requisicao.ashx/LoginBO/VerificaUsuarioLogado', [
+                "headers" => $this->headers
+            ]);
+
+            $body = $response->getBody();
+            $content = $body->getContents();
+            $stdResponse = json_decode($content);
+
+            return $stdResponse;
+            
+        } catch (RequestException $ex) {
+            $content = $ex->getResponse()->getBody()->getContents();
+            $stdResponse = json_decode($content);
+            return $stdResponse;
         }
         
     }
