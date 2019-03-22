@@ -38,7 +38,7 @@ class CNP {
         'Connection'=>'keep-alive',
     ];
 
-    function __construct($cpfCnpj, $cad) {
+    function __construct($cpfCnpj, $usuarioId) {
 
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -60,7 +60,7 @@ class CNP {
         ]);
         
         $this->cookieJar->save();
-        $this->cad = $cad;
+        $this->usuarioId = $usuarioId;
         
     }
 
@@ -92,7 +92,7 @@ class CNP {
         $this->cookieJar->save();
 
         // Carrega usuário no GS1
-        $this->buscarAssociadosUsuario(89896);
+        $this->buscarAssociadosUsuario($this->usuarioId);
         
         return $stdResponse;
         
