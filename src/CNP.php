@@ -104,7 +104,7 @@ class CNP {
                    "tipoCampo" => "LISTA",
                    
                 ],
-                "headers" => $this->headers
+                "headers" => $this->headers,
             ]);
             
             $body = $response->getBody();
@@ -129,7 +129,7 @@ class CNP {
     }
     
     public function storeProduct($data) {
-        
+
         try {
 
             $response = $this->client->request('POST', '/handlers/requisicao.ashx/ProdutoBO/CadastrarProduto', [
@@ -151,6 +151,31 @@ class CNP {
         
     }
 
+    public function buscarAssociadosUsuario($usuarioId) {
+
+        try {
+            
+            $response = $this->client->request('POST', '/handlers/requisicao.ashx/LoginBO/BuscarAssociadosUsuario', [
+                "json" => [
+                    "where" => [
+                        "usuarioId" => $usuarioId
+                    ]
+                ],
+                "headers" => $this->headers
+            ]);
+
+            $body = $response->getBody();
+            $content = $body->getContents();
+            $stdResponse = json_decode($content);
+
+            return $stdResponse[0];
+            
+        } catch (RequestException $ex) {
+            var_dump($ex->getMessage());
+        }
+        
+    }
+    
     public function getProductInfo($gtin) {
         
         try {
